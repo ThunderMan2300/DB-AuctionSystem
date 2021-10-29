@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.5</version>
+		<version>2.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.AuctionSystem</groupId>
-	<artifactId>OnlineAuctionSystem</artifactId>
+	<groupId>com.System.Auction</groupId>
+	<artifactId>OnlineAuction</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>OnlineAuctionSystem</name>
-	<description>Auction System for Database</description>
+	<name>OnlineAuction</name>
+	<description>Online Auctioning System with DB</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -23,11 +23,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web-services</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>
