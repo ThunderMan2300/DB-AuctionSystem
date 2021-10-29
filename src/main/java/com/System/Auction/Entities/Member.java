@@ -1,5 +1,6 @@
 package com.System.Auction.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,4 +18,8 @@ public class Member {
     private String email;
     private String phone;
     private String password;
+
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Buyer buyer;
 }

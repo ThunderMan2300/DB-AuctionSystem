@@ -71,7 +71,7 @@ CREATE TABLE BID (
 	BuyerID			long			NOT NULL,
 	ItemID			long			NOT NULL,
 	Price			long			NOT NULL,
-	Timestamp		date			NOT NULL, --Check for timestamp variable type
+	Timestamp		date			NOT NULL,
 	PRIMARY KEY (BidID),
 	FOREIGN KEY (BuyerID) REFERENCES BUYER(MID),
 	FOREIGN KEY (ItemID) REFERENCES ITEM(ItemID)
