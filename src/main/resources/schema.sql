@@ -8,89 +8,112 @@ DROP TABLE IF EXISTS SELLER;
 DROP TABLE IF EXISTS BUYER;
 DROP TABLE IF EXISTS MEMBER;
 
-
-CREATE TABLE MEMBER (
-	MID 			long 			NOT NULL,
-	Name			varchar(255)	NOT NULL,
-	HomeAddress 	varchar(255)			,
-	Email			varchar(255)	NOT NULL UNIQUE,
-	Phone			varchar(10)		NOT NULL UNIQUE,
-	Password		varchar(255)	NOT NULL,
-	PRIMARY KEY (MID)
+create table member (
+  mid int auto_increment,
+  email varchar(256) not null unique,
+  name varchar(256) not null,
+  password varchar(256) not null,
+  home_addr varchar(256),
+  phone varchar(10) not null unique,
+  primary key(mid)
 );
 
-CREATE TABLE BUYER (
-	MID				long			NOT NULL,
-	ShippingAddress	varchar(255)	NOT NULL,
-	PRIMARY KEY (MID),
-	FOREIGN KEY (MID) REFERENCES MEMBER(MID)
+create table buyer (
+  buyer_id int,
+  ship_addr varchar(256) not null,
+  primary key(buyer_id),
+  foreign key(buyer_id) references member(mid)
+    on update cascade
+    on delete cascade
 );
 
-CREATE TABLE SELLER (
-	MID				long			NOT NULL,
-	BankNum			varchar(12)		NOT NULL UNIQUE,
-	RoutingNumber	varchar(9)		NOT NULL,
-	PRIMARY KEY (MID),
-	FOREIGN KEY (MID) REFERENCES MEMBER(MID)
+create table seller (
+  seller_id int,
+  bank_acct_num varchar(12) not null unique,
+  bank_routing_num varchar(9) not null,
+  primary key(seller_id),
+  foreign key(seller_id) references member(mid)
+    on update cascade
+    on delete cascade
 );
 
-CREATE TABLE SUPERCATEGORY (
-	SupCategoryID	long			NOT NULL,
-	Name			varchar(255)	NOT NULL,
-	Description		varchar(255)			,
-	PRIMARY KEY (SupCategoryID)
+create table supercategory (
+  supcat_id int auto_increment,
+  name varchar(256) not null,
+  description varchar(256),
+  primary key(supcat_id)
 );
 
-CREATE TABLE CATEGORY (
-	SupCategoryID	long			NOT NULL,
-	CategoryID		long			NOT NULL,
-	CategoryName	varchar(255)	NOT NULL,
-	Description		varchar(255)			,
-	PRIMARY KEY (CategoryID),
-	FOREIGN KEY (SupCategoryID) REFERENCES SUPERCATEGORY(SupCategoryID)
+create table category (
+  cat_id int auto_increment,
+  name varchar(256) not null,
+  description varchar(256),
+  supcat_id int,
+  primary key(cat_id),
+  foreign key(supcat_id) references supercategory(supcat_id)
+    on update cascade
+    on delete cascade
 );
 
-CREATE TABLE ITEM (
-	ItemID			long			NOT NULL,
-	SellerID		long			NOT NULL,
-	Title			varchar(255)	NOT NULL,
-	Description		varchar(255)			,
-	StartingPrice	float			NOT NULL,
-	EndTime			date			NOT NULL,
-	StartTime		date			NOT NULL,
-	BidIncrement	float			NOT NULL,
-	CategoryID		float			NOT NULL,
-	ImageURL		varchar(255)	NOT NULL,
-	PRIMARY KEY (ItemID),
-	FOREIGN KEY (SellerID) REFERENCES SELLER(MID),
-	FOREIGN KEY (CategoryID) REFERENCES CATEGORY(CategoryID)
+create table item (
+  item_id int auto_increment,
+  seller_id int,
+  title varchar(256) not null,
+  description varchar(256),
+  start_price decimal(12,2) not null,
+  bid_increment decimal(12,2) not null,
+  start_time datetime not null,
+  endtime datetime not null,
+  category_id int,
+  img_url varchar(256),
+  primary key(item_id),
+  foreign key(seller_id) references member(mid)
+    on update cascade
+    on delete set null,
+  foreign key(category_id) references category(cat_id)
+    on update cascade
+    on delete set null
 );
 
-CREATE TABLE BID (
-	BidID			long			NOT NULL,
-	BuyerID			long			NOT NULL,
-	ItemID			long			NOT NULL,
-	Price			long			NOT NULL,
-	Timestamp		date			NOT NULL,
-	PRIMARY KEY (BidID),
-	FOREIGN KEY (BuyerID) REFERENCES BUYER(MID),
-	FOREIGN KEY (ItemID) REFERENCES ITEM(ItemID)
+create table bid (
+  bid_id int auto_increment,
+  buyer_id int,
+  item_id int not null,
+  price decimal(12,2) not null,
+  bid_time datetime not null,
+  primary key(bid_id),
+  foreign key(buyer_id) references member(mid)
+    on update cascade
+    on delete set null,
+  foreign key(item_id) references item(item_id)
+    on update cascade
+    on delete restrict
 );
 
-CREATE TABLE TRANSACTION (
-	TransactionID	long			NOT NULL,
-	BuyerID			long			NOT NULL,
-	SellerID		long			NOT NULL,
-	ItemID			long			NOT NULL,
-	TransactionTime	date			NOT NULL,
-	WinningBid		long			NOT NULL,
-	BuyerRating		long					,
-	SellerRating	long					,
-	BuyerFeedback	varchar(255)			,
-	SellerFeedback	varchar(255)			,
-	PRIMARY KEY (TransactionID),
-	FOREIGN KEY (BuyerID) REFERENCES BUYER(MID),
-	FOREIGN KEY (SellerID) REFERENCES SELLER(MID),
-	FOREIGN KEY (ItemID) REFERENCES ITEM(ItemID),
-	FOREIGN KEY (WinningBid) REFERENCES BID(BidID)
+create table transaction (
+  tid int auto_increment,
+  buyer_id int,
+  seller_id int,
+  item_id int not null unique,
+  buyer_rating int,
+  seller_rating int,
+  buyer_feedback varchar(256),
+  seller_feedback varchar(256),
+  time datetime default current_timestamp,
+  win_bid int not null unique,
+  primary key(tid),
+  foreign key(buyer_id) references member(mid)
+    on update cascade
+    on delete set null,
+  foreign key(seller_id) references member(mid)
+    on update cascade
+    on delete set null,
+  foreign key(item_id) references item(item_id)
+    on update cascade
+    on delete restrict,
+  foreign key(win_bid) references bid(bid_id)
+    on update cascade
+    on delete restrict,
+  check(buyer_rating >= 1 and buyer_rating <= 10),
+  check(seller_rating >= 1 and seller_rating <= 10)
 );

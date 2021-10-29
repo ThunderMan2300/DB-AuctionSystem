@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(path = "/member")
 public class MemberController {
+    /*
     @Autowired
     MemberServices services;
 
@@ -19,4 +20,5 @@ public class MemberController {
         // This returns a JSON or XML with the users
         return services.findAll();
     }
+     */
 }

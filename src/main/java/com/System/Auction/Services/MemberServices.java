@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Service
 public class MemberServices {
+    /*
     @Autowired
     private MemberRepository repository;
 
     public @ResponseBody Iterable<Member> findAll() {
         return repository.findAll();
     }
+    */
 }

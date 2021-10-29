@@ -1,41 +1,41 @@
-INSERT INTO MEMBER (MID, Name, HomeAddress, Email, Phone, Password) VALUES
-        (1, 'JAIME', 'FARMERS BRANCH', 'JAIME@GMAIL.COM', '1234567890', 'PASSWORD'),
-        (2, 'ANNABELLE', 'RICHARDSON', 'NOTFAKE@GMAIL.COM', '5555555555', 'ABC'),
-        (3, 'JOSH', 'DALLAS', 'JOSHISCOOL@GMAIL.COM', '5551244483', '123'),
-        (4, 'AKSHAYA', 'RICHARDSON', 'MYEMAIL@GMAIL.COM', '9876453120', 'QWER'),
-        (5, 'ANISH', 'GARLAND', 'BUSINESS@GMAIL.COM', '123654987', '0000');
+INSERT INTO member (name, home_addr, email, phone, password) VALUES
+        ('JAIME', 'FARMERS BRANCH', 'JAIME@GMAIL.COM', '1234567890', 'PASSWORD'),
+        ('ANNABELLE', 'RICHARDSON', 'NOTFAKE@GMAIL.COM', '5555555555', 'ABC'),
+        ('JOSH', 'DALLAS', 'JOSHISCOOL@GMAIL.COM', '5551244483', '123'),
+        ('AKSHAYA', 'RICHARDSON', 'MYEMAIL@GMAIL.COM', '9876453120', 'QWER'),
+        ('ANISH', 'GARLAND', 'BUSINESS@GMAIL.COM', '123654987', '0000');
 
-INSERT INTO BUYER (MID, ShippingAddress) VALUES
+INSERT INTO buyer (buyer_id, ship_addr) VALUES
         (1, 'MY ADDRESS 1'),
         (3, 'MY ADDRESS 2'),
         (4, 'MY ADDRESS 3');
 
-INSERT INTO SELLER (MID, BankNum, RoutingNumber) VALUES
+INSERT INTO seller (seller_id, bank_acct_num, bank_routing_num) VALUES
         (2, '123456789102', '000000000'),
         (5, '111111111111', '012345678');
 
-INSERT INTO SUPERCATEGORY (SupCategoryID, Name, Description) VALUES
-        (1, 'CARS', 'BROOM BROOM'),
-        (2, 'COMPUTERS', 'BEEP BOOP'),
-        (3, 'OUTDOORS', 'GOING OUT');
+INSERT INTO supercategory (name, description) VALUES
+        ('CARS', 'BROOM BROOM'),
+        ('COMPUTERS', 'BEEP BOOP'),
+        ('OUTDOORS', 'GOING OUT');
 
-INSERT INTO CATEGORY (SupCategoryID, CategoryID, CategoryName, Description) VALUES
-        (1, 1, 'MUSTANG', 'FORD SPORTS CAR'),
-        (2, 2, 'DELL', 'PARTNER WITH ALIENWARE'),
-        (2, 3, 'HP', 'HIGH PRINTER QUALITY');
+INSERT INTO category (supcat_id, name, description) VALUES
+        (1, 'MUSTANG', 'FORD SPORTS CAR'),
+        (2, 'DELL', 'PARTNER WITH ALIENWARE'),
+        (2, 'HP', 'HIGH PRINTER QUALITY');
 
-INSERT INTO ITEM (ItemID, SellerID, Title, Description, StartingPrice, EndTime, StartTime, BidIncrement, CategoryID, ImageURL) VALUES
-        (1, 2, 'NEW FORD MUSTANG', '2021 FORD MUSTANG CONVERTIBLE CAR', 250000, '2021-10-30', '2021-10-29', 500, 1, ''),
-        (2, 2, 'USED MOUSE', 'WORKING BLUETOOTH MOUSE', 5, '2021-10-28', '2021-10-21', 5, 3, '');
+INSERT INTO item (seller_id, title, description, start_price, endtime, start_time, bid_increment, category_id, img_url) VALUES
+        (2, 'NEW FORD MUSTANG', '2021 FORD MUSTANG CONVERTIBLE CAR', 250000, to_date('2021-10-30 12:00:00', 'YYYY-MM-DD HH:MI:SS'), to_date('2021-10-29 12:00:00', 'YYYY-MM-DD HH:MI:SS'), 500, 1, ''),
+        (2, 'USED MOUSE', 'WORKING BLUETOOTH MOUSE', 5, to_date('2021-10-29 12:00:00', 'YYYY-MM-DD HH:MI:SS'), to_date('2021-10-22 12:00:00', 'YYYY-MM-DD HH:MI:SS'), 5, 3, '');
 
-INSERT INTO BID (BidID, BuyerID, ItemID, Price, Timestamp) VALUES
-        (1, 1, 1, 250000, '2021-10-29'),
-        (2, 3, 1, 250500, '2021-10-29'),
-        (3, 1, 1, 251000, '2021-10-29'),
-        (4, 3, 2, 5, '2021-10-27'),
-        (5, 4, 2, 10, '2021-10-28');
+INSERT INTO bid (buyer_id, item_id, price, bid_time) VALUES
+        (1, 1, 250000, to_date('2021-10-29 01:24:00', 'YYYY-MM-DD HH:MI:SS')),
+        (3, 1, 250500, to_date('2021-10-29 01:30:00', 'YYYY-MM-DD HH:MI:SS')),
+        (1, 1, 251000, to_date('2021-10-29 02:45:00', 'YYYY-MM-DD HH:MI:SS')),
+        (3, 2, 5, to_date('2021-10-28 05:20:00', 'YYYY-MM-DD HH:MI:SS')),
+        (4, 2, 10, to_date('2021-10-28 05:25:00', 'YYYY-MM-DD HH:MI:SS'));
 
-INSERT INTO TRANSACTION (TransactionID, BuyerID, SellerID, ItemID, TransactionTime,
- WinningBid, BuyerRating, SellerRating, BuyerFeedback, SellerFeedback) VALUES
-        (1, 1, 2, 1, '2021-10-30', 3, 5, 5, 'GREAT CAR', 'NICE LOOKING'),
-        (2, 4, 2, 2, '2021-10-28', 5, 3, 4, 'MOUSE IS OLD', 'SOWED UP LATE TO MEETING');
+INSERT INTO transaction (buyer_id, seller_id, item_id,
+ win_bid, buyer_rating, seller_rating, buyer_feedback, seller_feedback) VALUES
+        (1, 2, 1, 3, 10, 10, 'GREAT CAR', 'NICE LOOKING'),
+        (4, 2, 2, 5, 7, 8, 'MOUSE IS OLD', 'SOWED UP LATE TO MEETING');
