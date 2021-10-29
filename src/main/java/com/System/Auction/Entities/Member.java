@@ -11,8 +11,9 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long MID;
 
-    private String name;
+    @Column(name = "HOMEADDRESS")
     private String homeAddress;
+    private String name;
     private String email;
     private String phone;
     private String password;
