@@ -24,7 +24,7 @@ INSERT INTO category (supcat_id, name, description) VALUES
         (2, 'DELL', 'PARTNER WITH ALIENWARE'),
         (2, 'HP', 'HIGH PRINTER QUALITY');
 
-INSERT INTO item (seller_id, title, description, start_price, endtime, start_time, bid_increment, category_id, img_url) VALUES
+INSERT INTO item (seller_id, title, description, start_price, end_time, start_time, bid_increment, category_id, img_url) VALUES
         (2, 'NEW FORD MUSTANG', '2021 FORD MUSTANG CONVERTIBLE CAR', 250000, to_date('2021-10-30 12:00:00', 'YYYY-MM-DD HH:MI:SS'), to_date('2021-10-29 12:00:00', 'YYYY-MM-DD HH:MI:SS'), 500, 1, ''),
         (2, 'USED MOUSE', 'WORKING BLUETOOTH MOUSE', 5, to_date('2021-10-29 12:00:00', 'YYYY-MM-DD HH:MI:SS'), to_date('2021-10-22 12:00:00', 'YYYY-MM-DD HH:MI:SS'), 5, 3, '');
 

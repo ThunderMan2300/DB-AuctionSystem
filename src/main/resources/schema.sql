@@ -1,12 +1,11 @@
-DROP TABLE IF EXISTS TYPE;
-DROP TABLE IF EXISTS CATEGORY;
-DROP TABLE IF EXISTS SUPERCATEGORY;
-DROP TABLE IF EXISTS BIDS;
-DROP TABLE IF EXISTS TRANSACTION;
-DROP TABLE IF EXISTS ITEM;
-DROP TABLE IF EXISTS SELLER;
-DROP TABLE IF EXISTS BUYER;
-DROP TABLE IF EXISTS MEMBER;
+DROP TABLE IF EXISTS transaction;
+DROP TABLE IF EXISTS bid;
+DROP TABLE IF EXISTS item;
+DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS supercategory;
+DROP TABLE IF EXISTS seller;
+DROP TABLE IF EXISTS buyer;
+DROP TABLE IF EXISTS member;
 
 create table member (
   mid int auto_increment,
@@ -52,62 +51,62 @@ create table category (
   primary key(cat_id),
   foreign key(supcat_id) references supercategory(supcat_id)
     on update cascade
-    on delete cascade
+    on delete restrict
 );
 
 create table item (
   item_id int auto_increment,
-  seller_id int,
+  seller_id int not null,
   title varchar(256) not null,
   description varchar(256),
   start_price decimal(12,2) not null,
   bid_increment decimal(12,2) not null,
   start_time datetime not null,
-  endtime datetime not null,
+  end_time datetime not null,
   category_id int,
   img_url varchar(256),
   primary key(item_id),
   foreign key(seller_id) references member(mid)
     on update cascade
-    on delete set null,
+    on delete restrict,
   foreign key(category_id) references category(cat_id)
     on update cascade
     on delete set null
 );
 
 create table bid (
-  bid_id int auto_increment,
-  buyer_id int,
-  item_id int not null,
-  price decimal(12,2) not null,
-  bid_time datetime not null,
-  primary key(bid_id),
-  foreign key(buyer_id) references member(mid)
-    on update cascade
-    on delete set null,
-  foreign key(item_id) references item(item_id)
-    on update cascade
-    on delete restrict
+    bid_id int auto_increment,
+    buyer_id int not null,
+    item_id int not null,
+    price decimal(12,2) not null,
+    bid_time datetime not null default current_timestamp,
+    primary key(bid_id),
+    foreign key(buyer_id) references member(mid)
+      on update cascade
+      on delete restrict,
+    foreign key(item_id) references item(item_id)
+      on update cascade
+      on delete restrict
 );
 
 create table transaction (
   tid int auto_increment,
-  buyer_id int,
-  seller_id int,
+  buyer_id int not null,
+  seller_id int not null,
   item_id int not null unique,
   buyer_rating int,
   seller_rating int,
   buyer_feedback varchar(256),
   seller_feedback varchar(256),
-  time datetime default current_timestamp,
+  tx_time datetime not null default current_timestamp,
   win_bid int not null unique,
   primary key(tid),
   foreign key(buyer_id) references member(mid)
     on update cascade
-    on delete set null,
+    on delete restrict,
   foreign key(seller_id) references member(mid)
     on update cascade
-    on delete set null,
+    on delete restrict,
   foreign key(item_id) references item(item_id)
     on update cascade
     on delete restrict,
