@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
-//@Data
-//@Entity
-//@NoArgsConstructor
+@Data
+@Entity(name = "buyer")
 public class Buyer {
-//    @Id
-//    @Column(name = "MID")
-//    private long MID;
-//
-//    @OneToOne
-//    @PrimaryKeyJoinColumn(name = "MID", referencedColumnName = "MID")
-//    @JsonIgnore
-//    private Member member;
-//
-//    public Buyer(Member member) {
-//        this.MID = member.getMID();
-//        this.member = member;
-//    }
+    @Id
+    @Column(name = "buyer_id")
+    private long buyerID;
+
+    @Column(name = "ship_addr")
+    private String shippingAddress;
+
+    @OneToOne(mappedBy = "buyer", cascade = CascadeType.ALL)
+    @JoinColumn(name = "MID")
+    private Member member;
+
+    @OneToMany(mappedBy = "buyer")
+    private List<Bid> bidList;
 }
