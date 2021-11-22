@@ -1,5 +1,6 @@
 package com.System.Auction.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class SuperCategory {
     private String name;
     private String description;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "superCategory")
     private List<Category> categoryList;
 }

@@ -23,6 +23,6 @@ public class Seller {
 
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "itemID")
+    @JoinColumn(name = "item_id")
     private Item item;
 }

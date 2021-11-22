@@ -1,5 +1,6 @@
 package com.System.Auction.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -32,9 +33,10 @@ public class Item {
     private Seller seller;
 
     @ManyToOne
-    @JoinColumn(name = "catID", nullable = false)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "item")
     private List<Bid> bidList;
 }
