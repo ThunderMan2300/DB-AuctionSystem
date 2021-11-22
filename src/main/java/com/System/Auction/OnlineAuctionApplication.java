@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OnlineAuctionSystemApplication {
+public class OnlineAuctionApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OnlineAuctionSystemApplication.class, args);
+		SpringApplication.run(OnlineAuctionApplication.class, args);
 	}
 
 }

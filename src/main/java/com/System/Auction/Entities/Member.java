@@ -1,25 +1,33 @@
 package com.System.Auction.Entities;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 @Data
-@Entity
-@Table(name = "MEMBER")
+@Entity(name = "Member")
 public class Member {
     @Id
-    @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "MID")
     private long MID;
-//
-//    private String email;
-//    private String homeAddress;
-//    private String name;
-//    private String password;
-//    private String phone;
 
-    public String toString() {
-        return ""
-               + MID;
-    }
+    @Column(name = "HOME_ADDR")
+    private String homeAddress;
+    private String name;
+    private String email;
+    private String phone;
+    private String password;
+
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "buyerID")
+    private Buyer buyer;
+
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sellerID")
+    private Seller seller;
 }

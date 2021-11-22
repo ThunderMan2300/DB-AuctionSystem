@@ -1,0 +1,13 @@
+.displayGrid {
+  padding-top: 5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5rem;
+}
+
+.gridItem {
+  text-align: center;
+  display: inline;
+  height: 100px;
+  width: auto;
+}
