@@ -36,7 +36,7 @@ public class MemberSignup {
         else if (!repository.existsById(buyer.getBuyerID())) {
             return null; //Error
         }
-        buyer.setMember(repository.findById(buyer.getBuyerID()).get());
+        buyer.setMemberProfile(repository.findById(buyer.getBuyerID()).get());
         return new Response(HttpStatus.OK.toString(), "", buyerRepository.save(buyer));
     }
 
@@ -48,7 +48,7 @@ public class MemberSignup {
         else if (!repository.existsById(seller.getSellerID())) {
             return null; //Error
         }
-        seller.setMember(repository.findById(seller.getSellerID()).get());
+        seller.setMemberProfile(repository.findById(seller.getSellerID()).get());
         return new Response(HttpStatus.OK.toString(), "", sellerRepository.save(seller));
     }
 }

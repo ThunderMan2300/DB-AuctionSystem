@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Entity(name = "item")
@@ -15,9 +14,10 @@ public class Item {
     @Column(name = "item_id")
     private long itemID;
 
+    @Column(name = "title")
     private String title;
+    @Column(name = "description")
     private String description;
-
     @Column(name = "start_price")
     private double startPrice;
     @Column(name = "bid_increment")
@@ -29,14 +29,18 @@ public class Item {
     @Column(name = "img_url")
     private String imgURL;
 
-    @OneToOne(mappedBy = "item", cascade = CascadeType.ALL)
-    private Seller seller;
+    @OneToOne
+    @JoinColumn(name = "seller_id", nullable = false)
+    private Member seller;
+
+    @OneToOne(mappedBy = "item")
+    private Transaction transaction;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id")
     private Category category;
 
-    @JsonIgnore
+    //@JsonIgnore
     @OneToMany(mappedBy = "item")
     private List<Bid> bidList;
 }

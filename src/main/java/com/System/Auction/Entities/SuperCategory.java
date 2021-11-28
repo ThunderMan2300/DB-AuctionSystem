@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Entity(name = "supercategory")
@@ -14,10 +14,12 @@ public class SuperCategory {
     @Column(name = "supcat_id")
     private long supcatID;
 
+    @Column(name = "name")
     private String name;
+    @Column(name = "description")
     private String description;
 
-    @JsonIgnore
+    //@JsonIgnore
     @OneToMany(mappedBy = "superCategory")
     private List<Category> categoryList;
 }
