@@ -40,7 +40,7 @@ public class Item {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    //@JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "item")
     private List<Bid> bidList;
 }
