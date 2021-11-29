@@ -26,6 +26,7 @@ function MainGrid() {
         const listItems = data.map((item) =>
             <div className="gridItem">
                 <h2>{item.title}</h2>
+                <img className="auctionImage" src={item.imgURL} alt={item.title} />
                 <p>{item.description}</p>
                 <p>Start Price: ${item.startPrice}</p>
             </div>

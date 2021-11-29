@@ -29,7 +29,8 @@ public class Item {
     @Column(name = "img_url")
     private String imgURL;
 
-    @OneToOne(mappedBy = "item", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "seller_id", nullable = false)
     private Seller seller;
 
     @ManyToOne
