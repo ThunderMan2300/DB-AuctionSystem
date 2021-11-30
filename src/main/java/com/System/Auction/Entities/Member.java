@@ -23,11 +23,11 @@ public class Member {
 
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "buyerID")
+    @JoinColumn(name = "buyer_id")
     private Buyer buyer;
 
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sellerID")
+    @JoinColumn(name = "seller_id")
     private Seller seller;
 }
