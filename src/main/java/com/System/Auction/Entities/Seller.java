@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Entity(name = "seller")
@@ -19,10 +19,9 @@ public class Seller {
     @Column(name = "bank_routing_num")
     private String bankRouting;
 
-    @OneToOne(mappedBy = "seller", cascade = CascadeType.ALL)
-    private Member member;
-
     @JsonIgnore
-    @OneToMany(mappedBy = "seller")
-    private List<Item> item;
+    @OneToOne
+    @JoinColumn(name = "seller_id")
+    private Member memberProfile;
+
 }
