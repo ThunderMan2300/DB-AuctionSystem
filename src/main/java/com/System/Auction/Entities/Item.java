@@ -43,7 +43,6 @@ public class Item {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "item")
     private List<Bid> bidList;
 }

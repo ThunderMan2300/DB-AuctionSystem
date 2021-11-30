@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Countdown from 'react-countdown';
 import './MainGrid.css';
 
 function MainGrid() {
@@ -28,11 +29,33 @@ function MainGrid() {
                 <h2>{item.title}</h2>
                 <img className="auctionImage" src={item.imgURL} alt={item.title} />
                 <p>{item.description}</p>
+                <CalcBid data={item.bidList} />
                 <p>Start Price: ${item.startPrice}</p>
+                <Countdown date={item.endTime} />
             </div>
         );
         return (
             <div className="displayGrid">{listItems}</div>
+        );
+    }
+
+    function CalcBid(props) {
+        var max = 0;
+        for(let [id, bid] of Object.entries(props)) {
+            if(bid[0] === undefined)
+                console.log('skip');
+            else {
+                for(let [a, b] of Object.entries(bid)) {
+                    console.log(b.price);
+                    if(b.price>max) {
+                        max = b.price;
+                    }
+                }
+            }
+        }
+
+        return (
+            <p>Current Bid: ${max}</p>
         );
     }
 

@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import classes from './login.module.css';
 
 const BASE_URL = "http://localhost:8080";
 
-export const Login = () => {
+function Login() {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ validEmail, setValidEmail  ] = useState(true);
     const [ validPassword, setValidPassword ] = useState(true);
-    const history = useHistory();
+    const history = useNavigate();
+
+    const GET = 'GET';
+    const POST = 'POST';
+    const PATCH = 'PATCH';
+    const DELETE = 'DELETE';
 
     const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const PWD_REGEX = /^[A-Z][a-z0-9]{6,11}$/;
@@ -45,7 +50,7 @@ export const Login = () => {
         };
     }
 
-    export const login = async data => {
+    const login = async data => {
         const response = await callAPI(POST, `api/login`, data);
         return response;
     }
@@ -126,3 +131,5 @@ export const Login = () => {
         </div>
     );
 };
+
+export default Login;

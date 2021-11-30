@@ -47,8 +47,8 @@ function NavBar() {
             <h3>Listing, bidding, selling, as easy as it gets</h3>
             <div className="et-hero-tabs-container">
               <Link to='/' className="et-hero-tab" href="">Home</Link>
-              <Link to='' className="et-hero-tab" href="">Contact Us</Link>
-              <Link to='' className="et-hero-tab" href="">My Account</Link>
+              <Link to='sell' className="et-hero-tab" href="">Sell</Link>
+              <Link to='login' className="et-hero-tab" href="">My Account</Link>
               <Link to='' className="et-hero-tab" href="">FAQ</Link>
               <span className="et-hero-tab-slider"></span>
             </div>
