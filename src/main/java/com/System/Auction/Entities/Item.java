@@ -29,13 +29,16 @@ public class Item {
     @Column(name = "img_url")
     private String imgURL;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "seller_id", nullable = false)
     private Member seller;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "item")
     private Transaction transaction;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

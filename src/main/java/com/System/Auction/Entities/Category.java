@@ -19,11 +19,12 @@ public class Category {
     @Column(name = "description")
     private String description;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "supcat_id")
     private SuperCategory superCategory;
 
-    //@JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     private List<Item> itemList;
 }

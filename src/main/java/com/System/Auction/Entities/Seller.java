@@ -19,6 +19,7 @@ public class Seller {
     @Column(name = "bank_routing_num")
     private String bankRouting;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "seller_id")
     private Member memberProfile;

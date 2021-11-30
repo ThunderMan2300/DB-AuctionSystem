@@ -26,23 +26,27 @@ public class Member {
     @Column(name = "phone")
     private String phone;
 
-    //@JsonIgnore
+    @JsonIgnore
     @OneToOne(mappedBy = "memberProfile")
     private Buyer buyerProfile;
 
-    //@JsonIgnore
+    @JsonIgnore
     @OneToOne(mappedBy = "memberProfile")
     private Seller sellerProfile;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "seller")
     private List<Item> auctionList;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "buyer")
     private List<Bid> bidList;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "seller")
     private List<Transaction> saleList;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "buyer")
     private List<Transaction> purchaseList;
 }

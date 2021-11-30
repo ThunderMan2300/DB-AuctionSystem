@@ -19,7 +19,7 @@ public class SuperCategory {
     @Column(name = "description")
     private String description;
 
-    //@JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "superCategory")
     private List<Category> categoryList;
 }

@@ -1,5 +1,6 @@
 package com.System.Auction.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,14 +20,17 @@ public class Bid {
     @Column(name = "bid_time")
     private Date bidTime;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "buyer_id", nullable = false)
     private Member buyer;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "winBid")
     private Transaction transaction;
 }

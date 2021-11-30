@@ -16,6 +16,7 @@ public class Buyer {
     @Column(name = "ship_addr")
     private String shippingAddress;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "buyer_id")
     private Member memberProfile;
