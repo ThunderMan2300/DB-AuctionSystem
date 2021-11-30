@@ -30,7 +30,7 @@ public class Item {
     private String imgURL;
 
     @JsonIgnore
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "seller_id", nullable = false)
     private Member seller;
 
