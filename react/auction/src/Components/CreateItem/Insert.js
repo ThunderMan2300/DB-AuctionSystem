@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
+import { useStateValue } from '../../Context/StateContext';
 import "./Insert.css"
 
 function Insert() {
-    const [email, setEmail] = useState();
     const [title, setTitle] = useState();
     const [startPrice, setStartPrice] = useState();
     const [category, setCategory] = useState();
     const [imgURL, setImageURL] = useState();
-    const [password, setPassword] = useState();
+
+    const history = useHistory();
+    const [{ password, email }, dispatch] = useStateValue();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -71,24 +73,6 @@ function Insert() {
                         type="text"
                         value={imgURL}
                         onChange={(e) => setImageURL(e.target.value)}
-                    ></input>
-                </div>
-                <div className="formGroup" id="email-form">
-                    <label for="email">Confirm Email*</label>
-                    <input
-                        id="email"
-                        type="text"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    ></input>
-                </div>
-                <div className="formGroup" id="password-form">
-                    <label for="password">Confirm Password*</label>
-                    <input
-                        id="password"
-                        type="text"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
                     ></input>
                 </div>
                 <button
