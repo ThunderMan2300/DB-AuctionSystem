@@ -10,7 +10,7 @@ import java.util.*;
 @Entity(name = "item")
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
     private long itemID;
 
@@ -30,7 +30,7 @@ public class Item {
     private String imgURL;
 
     @JsonIgnore
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "seller_id", nullable = false)
     private Member seller;
 
@@ -43,7 +43,6 @@ public class Item {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "item")
     private List<Bid> bidList;
 }

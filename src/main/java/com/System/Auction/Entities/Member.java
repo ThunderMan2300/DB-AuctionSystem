@@ -11,7 +11,7 @@ import java.util.*;
 @Entity(name = "member")
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mid")
     private long memberID;
 
