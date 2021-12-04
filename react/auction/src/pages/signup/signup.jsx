@@ -3,15 +3,21 @@ import { useHistory, useParams, Link } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useStateValue } from '../../Context/StateContext';
 
-import classes from './login.module.css';
+import classes from './signup.module.css';
 
 const BASE_URL = "http://localhost:8080";
 
-function Login() {
+function Signup() {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ name, setName ] = useState('');
+    const [ homeAddress, setAddress ] = useState('');
+    const [ phone, setPhone ] = useState('');
     const [ validEmail, setValidEmail  ] = useState(true);
     const [ validPassword, setValidPassword ] = useState(true);
+    const [ validName, setValidName ] = useState(true);
+    const [ validAddress, setValidAddress ] = useState(true);
+    const [ validPhone, setValidPhone ] = useState(true);
     const history = useHistory();
     const [{login}, dispatch] = useStateValue();
 
@@ -58,26 +64,29 @@ function Login() {
         };
     }
 
-    const loginFunction = async data => {
-        const response = await callAPI(POST, `/api/login/`, data);
+    const signup = async data => {
+        const response = await callAPI(POST, `/api/signup/`, data);
         return response;
     }
 
     const submit = async (e) => {
         e.preventDefault();
         if (!email || !password)
-            alert("Please enter all fields to login");
-        else if ((!validEmail || !validPassword) & false)
+            alert("Please enter all fields to signup");
+        else if ( (!validEmail || !validPassword) && false)
             alert("Please verify your fields");
         else {
             const body = {
                 email, 
-                password 
+                password,
+                name,
+                homeAddress,
+                phone
             }
-            const { status, data } = await loginFunction(body);
+            const { status, data } = await signup(body);
             
-            // Route to the homepage after login
-            if(status === 200 && data.data !== null ) {
+            // Route to the homepage after signup
+            if(status === 200) {
                 dispatch({
                   type: "AUTHORIZE",
                   item: {
@@ -90,7 +99,7 @@ function Login() {
                 history.push('/');
             }
             else {
-                alert("User doesn't exists");
+                alert(data.error);
             }
             console.log(data);
         }
@@ -107,12 +116,27 @@ function Login() {
         setPassword(value);
     }
 
+    const onNameChange = (value) => {
+        EMAIL_REGEX.test(value) ? setValidName(true) : setValidName(false);
+        setName(value);
+    }
+
+    const onAddressChange = (value) => {
+        EMAIL_REGEX.test(value) ? setValidAddress(true) : setValidAddress(false);
+        setAddress(value);
+    }
+
+    const onPhoneChange = (value) => {
+        EMAIL_REGEX.test(value) ? setValidPhone(true) : setValidPhone(false);
+        setPhone(value);
+    }
+
     return(
-        <div className={ classes.login }>
+        <div className={ classes.signup }>
             <div className={ classes.outerCard }>
                 <div className={ classes.cardContainer }>
                     <div id={classes.cardId }>
-                        <h2>Login</h2>
+                        <h2>Signup</h2>
                         <Form className="UserFormContainer" onSubmit={ e => submit(e) }>
                             <FormGroup className={ classes.formFields }>
                                 <Label for="exampleEmail"><strong>Email:</strong></Label>
@@ -141,10 +165,49 @@ function Login() {
                                     invalid={ !password ? null : !validPassword }
                                 />
                             </FormGroup>
-                            <Button outline className="submit" id={ classes.button }><strong>Login</strong></Button>
+                            <FormGroup className={ classes.formFields }>
+                                <Label for="exampleName"><strong>Name:</strong></Label>
+                                <Input
+                                    className={ classes.inputField }
+                                    type="text"
+                                    name="name"
+                                    placeholder="name"
+                                    value={ name }
+                                    onChange={ e => onNameChange(e.target.value) }
+                                    valid={ !name ? null : validName }
+                                    invalid={ !name ? null : !validName }
+                                />
+                            </FormGroup>
+                            <FormGroup className={ classes.formFields }>
+                                <Label for="exampleAddress"><strong>Address:</strong></Label>
+                                <Input
+                                    className={ classes.inputField }
+                                    type="text"
+                                    name="address"
+                                    placeholder="Address"
+                                    value={ homeAddress }
+                                    onChange={ e => onAddressChange(e.target.value) }
+                                    valid={ !homeAddress ? null : validAddress }
+                                    invalid={ !homeAddress ? null : !validAddress }
+                                />
+                            </FormGroup>
+                            <FormGroup className={ classes.formFields }>
+                                <Label for="examplePhone"><strong>Phone:</strong></Label>
+                                <Input
+                                    className={ classes.inputField }
+                                    type="text"
+                                    name="phone"
+                                    placeholder="Phone"
+                                    value={ phone }
+                                    onChange={ e => onPhoneChange(e.target.value) }
+                                    valid={ !phone ? null : validPhone }
+                                    invalid={ !phone ? null : !validPhone }
+                                />
+                            </FormGroup>
+                            <Button outline className="submit" id={ classes.button }><strong>signup</strong></Button>
                             <br />
                             <div id={ classes.registerLink }>
-                                <Link to="/register">New User? Register Here</Link>
+                                <Link to="/login">Already have an account? Log in here</Link>
                             </div>
                         </Form>
                     </div>
@@ -154,4 +217,4 @@ function Login() {
     );
 };
 
-export default Login;
+export default Signup;

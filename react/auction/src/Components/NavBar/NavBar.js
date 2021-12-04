@@ -1,6 +1,7 @@
 import './NavBar.css';
 import $ from 'jquery';
 import { Link } from 'react-router-dom';
+import { useStateValue } from "../../Context/StateContext";
 
 class StickyNavigation {
 
@@ -40,6 +41,8 @@ class StickyNavigation {
 new StickyNavigation();
 
 function NavBar() {
+    const [{ login }, dispatch] = useStateValue();
+
     return (
         <div>
           <section className="et-hero-tabs">
@@ -47,9 +50,13 @@ function NavBar() {
             <h3>Listing, bidding, selling, as easy as it gets</h3>
             <div className="et-hero-tabs-container">
               <Link to='/' className="et-hero-tab" href="">Home</Link>
-              <Link to='sell' className="et-hero-tab" href="">Sell</Link>
-              <Link to='login' className="et-hero-tab" href="">My Account</Link>
-              <Link to='' className="et-hero-tab" href="">FAQ</Link>
+              <Link to='/sell' className="et-hero-tab" href="">Sell</Link>
+              <Link to='/account' className="et-hero-tab" href="">My Account</Link>
+              <Link to='/' className="et-hero-tab" href=""
+                onClick={() => {
+                    dispatch({ type: "LOGOUT" });
+                }}
+                >Log Out</Link>
               <span className="et-hero-tab-slider"></span>
             </div>
           </section>
