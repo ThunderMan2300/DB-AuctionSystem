@@ -1,0 +1,82 @@
+.insertForm {
+	padding-top: 40px;
+}
+
+.formContainer {
+    height: 100%;
+	position: relative;
+}
+
+form {
+	margin: 0 auto;
+	width: 500px;
+	position: relative;
+}
+
+label, input, textarea {
+	display: block;
+}
+
+label {
+	font-size: 1.2em;
+	margin-top: 20px;
+	padding-left: 20px;
+}
+
+input, textarea{
+	width: 500px;
+	border: none;
+	border-radius: 20px;
+	outline: none;
+	padding: 10px;
+	font-family: 'Sniglet', cursive;
+	font-size: 1em;
+	color: #676767;
+	transition: border 0.5s;
+	-webkit-transition: border 0.5s;
+	-moz-transition: border 0.5s;
+	-o-transition: border 0.5s;
+	border: solid 3px #98d4f3;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+input:focus, textarea:focus {
+	border: solid 3px #77bde0;
+}
+
+textarea {
+	height: 100px;
+	resize: none;
+	overflow: auto;
+}
+
+.formGroup, .formGroup-active, .formGroup-error {
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	background-size: 10.5%;
+	transition: background-image 0.7s;
+	-webkit-transition: background-image 0.7s;
+	-moz-transition: background-image 0.7s;
+	-o-transition: background-image 0.7s;
+	width: 566px;
+	padding-top: 2px;
+}
+
+.submit {
+    border-style: hidden;
+    width: inherit;
+    background-color: #eee;
+    color: black;
+    height: 50px;
+    cursor: pointer;
+    margin-top: 30px;
+    font-size: 1.29em;
+    font-family: 'Sniglet', cursive;
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+    border: solid 3px black;
+}

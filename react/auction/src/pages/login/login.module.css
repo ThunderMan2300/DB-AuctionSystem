@@ -1,0 +1,64 @@
+.login {
+    height: 65vh;
+    display: flex;
+}
+
+.cardContainer {
+    width: 50%;
+}
+
+.outerCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#cardId {
+    padding: 15px;
+    border: 2px solid black;
+    border-radius: 0px;
+    box-shadow: 7px 10px #6a57dc;
+}
+
+#button {
+    color: black;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+#button:hover {
+    color: white;
+    border-radius: 2px;
+    background-color: black;
+}
+
+.formFields {
+    text-align: left;
+}
+
+.inputField:focus {
+    border: 1px solid black;
+    box-shadow: 3px 3px;
+}
+
+#registerLink {
+    padding: 15px;
+    font-size: small;
+}
+
+.submit {
+    border-style: hidden;
+    width: 150px;
+    background-color: #eee;
+    color: black;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 1em;
+    font-family: 'Sniglet', cursive;
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+    border: solid 3px black;
+}

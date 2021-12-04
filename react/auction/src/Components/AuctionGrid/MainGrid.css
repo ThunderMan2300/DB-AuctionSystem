@@ -1,0 +1,20 @@
+.displayGrid {
+  padding-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.gridItem {
+  text-align: center;
+  display: inline;
+  width: auto;
+  border: #9b9494;
+  border-style: solid;
+}
+
+.auctionImage {
+    height: 100px;
+}
