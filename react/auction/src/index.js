@@ -4,9 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import NavBar from './Components/NavBar/NavBar';
+import {StateProvider} from './Context/StateContext';
+import reducer, { initialState } from './Context/reducer';
 
 ReactDOM.render(
-    <App />,
+    <StateProvider initialState={initialState} reducer={reducer} >
+        <App />
+        </StateProvider>,
     document.getElementById('root')
 );
 

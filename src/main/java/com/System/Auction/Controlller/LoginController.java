@@ -18,7 +18,7 @@ public class LoginController {
     @Autowired
     MemberRepository repository;
 
-    @GetMapping("/")
+    @PostMapping("/")
     public Response authenticate(@RequestBody Map<String, String> data) {
         Member found = repository.findByEmailEqualsAndPasswordEquals(data.get("email"), data.get("password"));
         boolean sendFound = false;

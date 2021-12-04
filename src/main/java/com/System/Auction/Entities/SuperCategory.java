@@ -10,7 +10,7 @@ import java.util.*;
 @Entity(name = "supercategory")
 public class SuperCategory {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "supcat_id")
     private long supcatID;
 

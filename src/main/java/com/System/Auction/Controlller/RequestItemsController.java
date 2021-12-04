@@ -56,7 +56,8 @@ public class RequestItemsController {
         item.setStartPrice(Double.parseDouble(json.get("startPrice")));
         item.setImgURL(json.get("imgURL"));
         //item.setCategory();
-        item.setBidIncrement( Math.ceil(item.getStartPrice() / 50) * 5 );
+        double tmp = (Math.ceil(item.getStartPrice() / 50) * 5) == 0 ? 5 : (Math.ceil(item.getStartPrice() / 50) * 5);
+        item.setBidIncrement(tmp);
         item.setSeller(memberRepository.findByEmailEqualsAndPasswordEquals(json.get("email"), json.get("password")));
         item.setStartTime(new Date(System.currentTimeMillis()));
         item.setEndTime(new Date(System.currentTimeMillis() + 604800000 ) );

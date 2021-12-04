@@ -10,7 +10,7 @@ import java.util.*;
 @Entity(name = "item")
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
     private long itemID;
 
