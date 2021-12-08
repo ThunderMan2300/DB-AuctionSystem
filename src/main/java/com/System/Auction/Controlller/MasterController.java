@@ -4,6 +4,7 @@ import com.System.Auction.Entities.*;
 import com.System.Auction.Repositories.BidRepository;
 import com.System.Auction.Repositories.ItemRepository;
 import com.System.Auction.Repositories.MemberRepository;
+import com.System.Auction.Repositories.TransactionRepository;
 import com.System.Auction.Services.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ public class MasterController {
     MemberRepository memberRepository;
     @Autowired
     BidRepository bidRepository;
+    @Autowired
+    TransactionRepository transactionRepository;
 
     @Transactional
     @PostMapping("/bid")
@@ -65,5 +68,36 @@ public class MasterController {
         if(member == null)
             return null;
         return new Response(HttpStatus.OK.toString(), "", member.getBidList());
+    }
+
+    @GetMapping("/items")
+    public Response getItems(@RequestParam String email, @RequestParam String password) {
+        Member member = memberRepository.findByEmailEqualsAndPasswordEquals(email, password);
+        if(member == null)
+            return null;
+        return new Response(HttpStatus.OK.toString(), "", member.getAuctionList());
+    }
+
+    @Transactional
+    @GetMapping("/transactions")
+    public Response getTransactions(@RequestParam String email, @RequestParam String password) {
+        Date date = new Date(System.currentTimeMillis());
+        List<Item> completedAuctions = itemRepository.findByEndTimeLessThanEqual(date);
+        completedAuctions.forEach((item) -> {
+            if (!transactionRepository.existsByItem(item)) {
+                Bid winBid = bidRepository.findFirstByItemOrderByPriceDescBidTimeDesc(item);
+                Transaction newTransaction = new Transaction();
+                newTransaction.setSeller(item.getSeller());
+                newTransaction.setBuyer(winBid.getBuyer());
+                newTransaction.setItem(item);
+                newTransaction.setWinBid(winBid);
+                newTransaction.setTransactionTime(new Date(System.currentTimeMillis()));
+                transactionRepository.save(newTransaction);
+            }
+        });
+        Member member = memberRepository.findByEmailEqualsAndPasswordEquals(email, password);
+        if(member == null)
+            return null;
+        return new Response(HttpStatus.OK.toString(), "", transactionRepository.findBySellerOrBuyer(member, member));
     }
 }
