@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { useHistory, useParams, Link } from "react-router-dom";
 import { useStateValue } from '../../Context/StateContext';
-import './BidList.css';
+import './TransactionList.css';
 
-function BidList() {
+function TransactionList() {
     const [data, setData] = useState([]);
     const history = useHistory();
     const [{ email, login, password }, dispatch] = useStateValue();
@@ -12,9 +12,9 @@ function BidList() {
         history.push("/login");
     }
 
-    const getBids = async () => {
+    const getTransactions = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/auction/bids?email=' + email + '&password=' + password);
+            const response = await fetch('http://localhost:8080/api/auction/transactions?email=' + email + '&password=' + password);
             const json = await response.json();
             setData(json.data);
         }
@@ -35,7 +35,7 @@ function BidList() {
     }
 
     useEffect(() => {
-        getBids();
+        getTransactions();
         const script = document.createElement('script');
         script.src = "https://www.kryogenix.org/code/browser/sorttable/sorttable.js";
         script.async = true;
@@ -43,31 +43,29 @@ function BidList() {
 
     }, []);
     console.log(data);
-    const bidList = data.map((bid) =>
+    const transactionList = data.map((transaction) =>
          <tr>
-            <td>{bid.bidID}</td>
-            <td>{bid.price}</td>
-            <td><TimeSlot data={bid.bidTime} /></td>
+            <td>{transaction.transactionID}</td>
+            <td><TimeSlot data={transaction.transactionTime} /></td>
          </tr>
     );
 
     return(
-        <div id="tableContainer">
-            <h1>My Bids:</h1>
-            <table className="sortable" id="customers">
+        <div id="transactiontableContainer">
+            <h1>My Transactions:</h1>
+            <table className="sortable" id="mytransactions">
             <thead>
                 <tr>
-                    <th>Bid ID</th>
-                    <th>Price</th>
-                    <th>Bid Time</th>
+                    <th>Transaction ID</th>
+                    <th>Transaction Time</th>
                 </tr>
             </thead>
             <tbody>
-                {bidList}
+                {transactionList}
             </tbody>
             </table>
         </div>
     )
 }
 
-export default BidList;
+export default TransactionList;

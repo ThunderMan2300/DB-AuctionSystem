@@ -60,7 +60,7 @@ public class RequestItemsController {
         item.setBidIncrement(tmp);
         item.setSeller(memberRepository.findByEmailEqualsAndPasswordEquals(json.get("email"), json.get("password")));
         item.setStartTime(new Date(System.currentTimeMillis()));
-        item.setEndTime(new Date(System.currentTimeMillis() + 604800000 ) );
+        item.setEndTime(new Date(System.currentTimeMillis() + 300000 ) );
 
         return new Response(HttpStatus.OK.toString(), "",
                 itemRepository.save(item));

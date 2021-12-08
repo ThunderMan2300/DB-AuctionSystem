@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { useHistory, useParams, Link } from "react-router-dom";
 import { useStateValue } from '../../Context/StateContext';
-import './BidList.css';
+import './AuctionList.css';
 
-function BidList() {
+function AuctionList() {
     const [data, setData] = useState([]);
     const history = useHistory();
     const [{ email, login, password }, dispatch] = useStateValue();
@@ -12,9 +12,9 @@ function BidList() {
         history.push("/login");
     }
 
-    const getBids = async () => {
+    const getAuctions = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/auction/bids?email=' + email + '&password=' + password);
+            const response = await fetch('http://localhost:8080/api/auction/items?email=' + email + '&password=' + password);
             const json = await response.json();
             setData(json.data);
         }
@@ -35,7 +35,7 @@ function BidList() {
     }
 
     useEffect(() => {
-        getBids();
+        getAuctions();
         const script = document.createElement('script');
         script.src = "https://www.kryogenix.org/code/browser/sorttable/sorttable.js";
         script.async = true;
@@ -43,31 +43,37 @@ function BidList() {
 
     }, []);
     console.log(data);
-    const bidList = data.map((bid) =>
+    const auctionList = data.map((auction) =>
          <tr>
-            <td>{bid.bidID}</td>
-            <td>{bid.price}</td>
-            <td><TimeSlot data={bid.bidTime} /></td>
+            <td>{auction.itemID}</td>
+            <td>{auction.title}</td>
+            <td>{auction.startPrice}</td>
+            <td>{auction.bidIncrement}</td>
+            <td><TimeSlot data={auction.startTime} /></td>
+            <td><TimeSlot data={auction.endTime} /></td>
          </tr>
     );
 
     return(
-        <div id="tableContainer">
-            <h1>My Bids:</h1>
-            <table className="sortable" id="customers">
+        <div id="auctiontableContainer">
+            <h1>My Auctions:</h1>
+            <table className="sortable" id="myauctions">
             <thead>
                 <tr>
-                    <th>Bid ID</th>
-                    <th>Price</th>
-                    <th>Bid Time</th>
+                    <th>Item ID</th>
+                    <th>Name</th>
+                    <th>Start Price</th>
+                    <th>Bid Increment</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
                 </tr>
             </thead>
             <tbody>
-                {bidList}
+                {auctionList}
             </tbody>
             </table>
         </div>
     )
 }
 
-export default BidList;
+export default AuctionList;

@@ -112,7 +112,7 @@ create table transaction (
     on delete restrict,
   foreign key(win_bid) references bid(bid_id)
     on update cascade
-    on delete restrict,
-  check(buyer_rating >= 1 and buyer_rating <= 10),
-  check(seller_rating >= 1 and seller_rating <= 10)
+    on delete restrict
+  -- check(buyer_rating >= 1 and buyer_rating <= 10),
+  -- check(seller_rating >= 1 and seller_rating <= 10)
 );
